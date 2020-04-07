@@ -1,0 +1,349 @@
+\hypertarget{main_8c}{}\doxysection{main.\+c File Reference}
+\label{main_8c}\index{main.c@{main.c}}
+
+
+Main function, Tick\+\_\+10ms interrupt, 2 example functions, and a fault handler.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+\doxysubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_air_data__t}{Air\+Data\+\_\+t}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{main_8c_a1308c26399a494bab1bc183615895b79}{A\+I\+R\+\_\+\+D\+A\+T\+A\+\_\+\+S\+C\+A\+LE}}~1.\+00325
+\item 
+\#define \mbox{\hyperlink{main_8c_ac6a8c818f017b3526ecbcf9d4e79c755}{F\+A\+U\+L\+T\+\_\+\+N\+O\+NE}}~0
+\item 
+\#define \mbox{\hyperlink{main_8c_a3cd04aecb3d3f4f99742b9a4d07415f3}{F\+A\+U\+L\+T\+\_\+\+O\+V\+E\+R\+R\+UN}}~1
+\item 
+\#define \mbox{\hyperlink{main_8c_ade322587ef9f521e69c053873832ea40}{F\+A\+U\+L\+T\+\_\+\+A\+I\+R\+F\+I\+L\+T\+ER}}~2
+\item 
+\#define \mbox{\hyperlink{main_8c_a53aadd21aa57900f8426e99fc2a63caa}{F\+A\+U\+L\+T\+\_\+\+C\+O\+M\+P\+E\+N\+S\+A\+T\+E\+\_\+\+D\+IV}}~3
+\item 
+\#define \mbox{\hyperlink{main_8c_a813c2ad0e115b8ae7de4bbf8812071c5}{F\+A\+U\+L\+T\+\_\+\+C\+O\+M\+P\+E\+N\+S\+A\+T\+E\+\_\+\+R\+A\+N\+GE}}~4
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+interrupt void \mbox{\hyperlink{main_8c_a054751a764f355d0af0734be7a7d51cc}{Tick\+\_\+10ms}} (void)
+\begin{DoxyCompactList}\small\item\em interrupt function supported by compiler \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{main_8c_afff859a5fb28e5f2047a113ffb622a74}{filter\+Air\+Data}} (\mbox{\hyperlink{struct_air_data__t}{Air\+Data\+\_\+t}} $\ast$\mbox{\hyperlink{main_8c_ac924cd877e7ebbba1c267e05d6597564}{in}}, \mbox{\hyperlink{struct_air_data__t}{Air\+Data\+\_\+t}} $\ast$out)
+\begin{DoxyCompactList}\small\item\em Do some math on the raw input data to get a filtered result. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{main_8c_a0799d8cb33723525f86b23fb7eb92563}{Fault}} (int fault\+Code)
+\begin{DoxyCompactList}\small\item\em Handle any faults asserted in the code. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{main_8c_a3023a5c8e7fdbeeffc4cec266dc080a1}{if}} (\mbox{\hyperlink{main_8c_ac924cd877e7ebbba1c267e05d6597564}{in}}-\/$>$\mbox{\hyperlink{main_8c_a6e7589eb20686776a4483c0421a8fe3a}{tempC}}==0)
+\begin{DoxyCompactList}\small\item\em temp variable to hold div result \end{DoxyCompactList}\item 
+\mbox{\hyperlink{main_8c_a6baf947bae699635a426ca0390924d01}{if}} (\mbox{\hyperlink{main_8c_a905c521e05ec8042631a912b71d0454e}{temp}} $>$65535)
+\item 
+\mbox{\hyperlink{main_8c_a5f3f8891e3f4c9d8d7effae7eb271604}{return}} (0)
+\item 
+int \mbox{\hyperlink{main_8c_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char $\ast$$\ast$argv)
+\begin{DoxyCompactList}\small\item\em main function for controller \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct_air_data__t}{Air\+Data\+\_\+t}} \mbox{\hyperlink{main_8c_a998389bca5ef95ca837db2a799fed8fa}{Raw\+Air\+Data}} = \{ 1, 1000, 100000 \}
+\begin{DoxyCompactList}\small\item\em Raw data from sensor. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{main_8c_a01db456822b75058d3fbab80a89c0f66}{Air\+Data\+Processed}} = 1
+\begin{DoxyCompactList}\small\item\em over run check \end{DoxyCompactList}\item 
+int compensate\+Air\+Data \mbox{\hyperlink{main_8c_ac924cd877e7ebbba1c267e05d6597564}{in}}
+\begin{DoxyCompactList}\small\item\em Compensate the filtered air speed based on the temperature. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{main_8c_a905c521e05ec8042631a912b71d0454e}{temp}} = \mbox{\hyperlink{main_8c_ac924cd877e7ebbba1c267e05d6597564}{in}}-\/$>$\mbox{\hyperlink{main_8c_aea3d8432371e80821f3548dd7d5e8ac6}{speed}} / \mbox{\hyperlink{main_8c_ac924cd877e7ebbba1c267e05d6597564}{in}}-\/$>$\mbox{\hyperlink{main_8c_a6e7589eb20686776a4483c0421a8fe3a}{tempC}}
+\item 
+out \mbox{\hyperlink{main_8c_a6e7589eb20686776a4483c0421a8fe3a}{tempC}} = \mbox{\hyperlink{main_8c_a905c521e05ec8042631a912b71d0454e}{temp}}
+\item 
+out \mbox{\hyperlink{main_8c_aea3d8432371e80821f3548dd7d5e8ac6}{speed}} = \mbox{\hyperlink{main_8c_ac924cd877e7ebbba1c267e05d6597564}{in}}-\/$>$speed
+\item 
+out \mbox{\hyperlink{main_8c_a5bd0283311716874a921a4177adaad42}{err\+Word}} = \mbox{\hyperlink{main_8c_ac924cd877e7ebbba1c267e05d6597564}{in}}-\/$>$err\+Word
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Main function, Tick\+\_\+10ms interrupt, 2 example functions, and a fault handler. 
+
+For an actual application we would keep each of these functions in a file of its own. Since this is just a short exercise, all the functions are lumped into the \mbox{\hyperlink{main_8c}{main.\+c}} file. There should be header files as well.
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000001}{Todo}}]Break up this overly large file into 3 parts. 
+
+Move the typedefs into a header file.\end{DoxyRefDesc}
+
+
+\begin{DoxyAuthor}{Author}
+Dr Tom Flint 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+7 April 2020 
+\end{DoxyDate}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{main_8c_a1308c26399a494bab1bc183615895b79}\label{main_8c_a1308c26399a494bab1bc183615895b79}} 
+\index{main.c@{main.c}!AIR\_DATA\_SCALE@{AIR\_DATA\_SCALE}}
+\index{AIR\_DATA\_SCALE@{AIR\_DATA\_SCALE}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{AIR\_DATA\_SCALE}{AIR\_DATA\_SCALE}}
+{\footnotesize\ttfamily \#define A\+I\+R\+\_\+\+D\+A\+T\+A\+\_\+\+S\+C\+A\+LE~1.\+00325}
+
+Air\+Data structure to hold data from the Fairchild type 54c airspeed sensor. See \href{http://fairchild.com/sensor/type54c.html}{\texttt{ http\+://fairchild.\+com/sensor/type54c.\+html}} for description
+
+Error Code Summary\+:
+\begin{DoxyItemize}
+\item 0 no error
+\item 1 colder than min temp
+\item 2 hotter than max temp
+\item 3 loss of power
+\item 4 calibration failed 
+\end{DoxyItemize}
+
+Definition at line 31 of file main.\+c.
+
+\mbox{\Hypertarget{main_8c_ade322587ef9f521e69c053873832ea40}\label{main_8c_ade322587ef9f521e69c053873832ea40}} 
+\index{main.c@{main.c}!FAULT\_AIRFILTER@{FAULT\_AIRFILTER}}
+\index{FAULT\_AIRFILTER@{FAULT\_AIRFILTER}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{FAULT\_AIRFILTER}{FAULT\_AIRFILTER}}
+{\footnotesize\ttfamily \#define F\+A\+U\+L\+T\+\_\+\+A\+I\+R\+F\+I\+L\+T\+ER~2}
+
+
+
+Definition at line 36 of file main.\+c.
+
+\mbox{\Hypertarget{main_8c_a53aadd21aa57900f8426e99fc2a63caa}\label{main_8c_a53aadd21aa57900f8426e99fc2a63caa}} 
+\index{main.c@{main.c}!FAULT\_COMPENSATE\_DIV@{FAULT\_COMPENSATE\_DIV}}
+\index{FAULT\_COMPENSATE\_DIV@{FAULT\_COMPENSATE\_DIV}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{FAULT\_COMPENSATE\_DIV}{FAULT\_COMPENSATE\_DIV}}
+{\footnotesize\ttfamily \#define F\+A\+U\+L\+T\+\_\+\+C\+O\+M\+P\+E\+N\+S\+A\+T\+E\+\_\+\+D\+IV~3}
+
+
+
+Definition at line 37 of file main.\+c.
+
+\mbox{\Hypertarget{main_8c_a813c2ad0e115b8ae7de4bbf8812071c5}\label{main_8c_a813c2ad0e115b8ae7de4bbf8812071c5}} 
+\index{main.c@{main.c}!FAULT\_COMPENSATE\_RANGE@{FAULT\_COMPENSATE\_RANGE}}
+\index{FAULT\_COMPENSATE\_RANGE@{FAULT\_COMPENSATE\_RANGE}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{FAULT\_COMPENSATE\_RANGE}{FAULT\_COMPENSATE\_RANGE}}
+{\footnotesize\ttfamily \#define F\+A\+U\+L\+T\+\_\+\+C\+O\+M\+P\+E\+N\+S\+A\+T\+E\+\_\+\+R\+A\+N\+GE~4}
+
+
+
+Definition at line 38 of file main.\+c.
+
+\mbox{\Hypertarget{main_8c_ac6a8c818f017b3526ecbcf9d4e79c755}\label{main_8c_ac6a8c818f017b3526ecbcf9d4e79c755}} 
+\index{main.c@{main.c}!FAULT\_NONE@{FAULT\_NONE}}
+\index{FAULT\_NONE@{FAULT\_NONE}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{FAULT\_NONE}{FAULT\_NONE}}
+{\footnotesize\ttfamily \#define F\+A\+U\+L\+T\+\_\+\+N\+O\+NE~0}
+
+\begin{DoxyRefDesc}{Todo}
+\item[\mbox{\hyperlink{todo__todo000002}{Todo}}]move the fault codes to a header file, convert to enum \end{DoxyRefDesc}
+
+
+Definition at line 34 of file main.\+c.
+
+\mbox{\Hypertarget{main_8c_a3cd04aecb3d3f4f99742b9a4d07415f3}\label{main_8c_a3cd04aecb3d3f4f99742b9a4d07415f3}} 
+\index{main.c@{main.c}!FAULT\_OVERRUN@{FAULT\_OVERRUN}}
+\index{FAULT\_OVERRUN@{FAULT\_OVERRUN}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{FAULT\_OVERRUN}{FAULT\_OVERRUN}}
+{\footnotesize\ttfamily \#define F\+A\+U\+L\+T\+\_\+\+O\+V\+E\+R\+R\+UN~1}
+
+
+
+Definition at line 35 of file main.\+c.
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{main_8c_a0799d8cb33723525f86b23fb7eb92563}\label{main_8c_a0799d8cb33723525f86b23fb7eb92563}} 
+\index{main.c@{main.c}!Fault@{Fault}}
+\index{Fault@{Fault}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{Fault()}{Fault()}}
+{\footnotesize\ttfamily void Fault (\begin{DoxyParamCaption}\item[{int}]{fault\+Code }\end{DoxyParamCaption})}
+
+
+
+Handle any faults asserted in the code. 
+
+This should do an orderly shutdown of the application, log the fault with a timestamp, reset interrupts, etc. The actions are determined by the severity of the fault and the application. 
+
+Definition at line 127 of file main.\+c.
+
+\mbox{\Hypertarget{main_8c_afff859a5fb28e5f2047a113ffb622a74}\label{main_8c_afff859a5fb28e5f2047a113ffb622a74}} 
+\index{main.c@{main.c}!filterAirData@{filterAirData}}
+\index{filterAirData@{filterAirData}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{filterAirData()}{filterAirData()}}
+{\footnotesize\ttfamily int filter\+Air\+Data (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_air_data__t}{Air\+Data\+\_\+t}} $\ast$}]{in,  }\item[{\mbox{\hyperlink{struct_air_data__t}{Air\+Data\+\_\+t}} $\ast$}]{out }\end{DoxyParamCaption})}
+
+
+
+Do some math on the raw input data to get a filtered result. 
+
+This functions reads from the global Raw\+Air\+Data structure, so the Tick\+\_\+10ms interrupt must be disabled during the processing.
+
+Further description of the particular filtering, for this example the math is pretty meaningless. 
+
+Definition at line 88 of file main.\+c.
+
+\mbox{\Hypertarget{main_8c_a3023a5c8e7fdbeeffc4cec266dc080a1}\label{main_8c_a3023a5c8e7fdbeeffc4cec266dc080a1}} 
+\index{main.c@{main.c}!if@{if}}
+\index{if@{if}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{if()}{if()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily if (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{main_8c_ac924cd877e7ebbba1c267e05d6597564}{in}}-\/$>$}]{tempC = {\ttfamily =~0} }\end{DoxyParamCaption})}
+
+
+
+temp variable to hold div result 
+
+
+
+Definition at line 154 of file main.\+c.
+
+\mbox{\Hypertarget{main_8c_a6baf947bae699635a426ca0390924d01}\label{main_8c_a6baf947bae699635a426ca0390924d01}} 
+\index{main.c@{main.c}!if@{if}}
+\index{if@{if}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{if()}{if()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily if (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{main_8c_a905c521e05ec8042631a912b71d0454e}{temp}}}]{,  }\item[{65535}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 161 of file main.\+c.
+
+\mbox{\Hypertarget{main_8c_a3c04138a5bfe5d72780bb7e82a18e627}\label{main_8c_a3c04138a5bfe5d72780bb7e82a18e627}} 
+\index{main.c@{main.c}!main@{main}}
+\index{main@{main}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
+
+
+
+main function for controller 
+
+Further description of what is done in \mbox{\hyperlink{main_8c_a3c04138a5bfe5d72780bb7e82a18e627}{main()}}, any special concerns or unusual methods. Ideally, main will define the data structures, initialize them, and call other functions that handle the details. Air\+Data after filter
+
+Compensated for temperature
+
+error returned by functions
+
+filtering error count
+
+Definition at line 184 of file main.\+c.
+
+\mbox{\Hypertarget{main_8c_a5f3f8891e3f4c9d8d7effae7eb271604}\label{main_8c_a5f3f8891e3f4c9d8d7effae7eb271604}} 
+\index{main.c@{main.c}!return@{return}}
+\index{return@{return}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{return()}{return()}}
+{\footnotesize\ttfamily return (\begin{DoxyParamCaption}\item[{0}]{ }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{main_8c_a054751a764f355d0af0734be7a7d51cc}\label{main_8c_a054751a764f355d0af0734be7a7d51cc}} 
+\index{main.c@{main.c}!Tick\_10ms@{Tick\_10ms}}
+\index{Tick\_10ms@{Tick\_10ms}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{Tick\_10ms()}{Tick\_10ms()}}
+{\footnotesize\ttfamily interrupt void Tick\+\_\+10ms (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+interrupt function supported by compiler 
+
+Compiler supports an interrupt using second bank of register. Must take void arguments and return void. ~\newline
+ This interrupt is triggered by the 10 m\+Sec timer T1. It can be masked using the macro D\+I\+\_\+\+T1 and unmasked using macro E\+I\+\_\+\+T1 If this interrupt is called before the prior set of Air\+Data was processed throw a fault with code F\+A\+U\+L\+T\+\_\+\+O\+V\+E\+R\+R\+UN. 
+
+Definition at line 61 of file main.\+c.
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{main_8c_a01db456822b75058d3fbab80a89c0f66}\label{main_8c_a01db456822b75058d3fbab80a89c0f66}} 
+\index{main.c@{main.c}!AirDataProcessed@{AirDataProcessed}}
+\index{AirDataProcessed@{AirDataProcessed}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{AirDataProcessed}{AirDataProcessed}}
+{\footnotesize\ttfamily int Air\+Data\+Processed = 1}
+
+
+
+over run check 
+
+
+
+Definition at line 49 of file main.\+c.
+
+\mbox{\Hypertarget{main_8c_a5bd0283311716874a921a4177adaad42}\label{main_8c_a5bd0283311716874a921a4177adaad42}} 
+\index{main.c@{main.c}!errWord@{errWord}}
+\index{errWord@{errWord}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{errWord}{errWord}}
+{\footnotesize\ttfamily out err\+Word = \mbox{\hyperlink{main_8c_ac924cd877e7ebbba1c267e05d6597564}{in}}-\/$>$err\+Word}
+
+
+
+Definition at line 171 of file main.\+c.
+
+\mbox{\Hypertarget{main_8c_ac924cd877e7ebbba1c267e05d6597564}\label{main_8c_ac924cd877e7ebbba1c267e05d6597564}} 
+\index{main.c@{main.c}!in@{in}}
+\index{in@{in}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{in}{in}}
+{\footnotesize\ttfamily int compensate\+Air\+Data in}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{    }
+\DoxyCodeLine{    \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{long} \mbox{\hyperlink{main_8c_a905c521e05ec8042631a912b71d0454e}{temp}} = 0L}
+
+\end{DoxyCode}
+
+
+Compensate the filtered air speed based on the temperature. 
+
+This function addresses two reliability concerns that were present in the example code. A divide by zero condition, and a range problem.
+
+We will divide the speed by the tempC, placing the result back into tempC. So a 32 bit unsigned long, divided by a 16 bit unsigned long with the result going into a 16 bit unsigned long. Since the result may not fit, we use a temporary variable, and check the range.
+
+This is not a realistic computation, but just to illustrate the idea 
+
+Definition at line 148 of file main.\+c.
+
+\mbox{\Hypertarget{main_8c_a998389bca5ef95ca837db2a799fed8fa}\label{main_8c_a998389bca5ef95ca837db2a799fed8fa}} 
+\index{main.c@{main.c}!RawAirData@{RawAirData}}
+\index{RawAirData@{RawAirData}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{RawAirData}{RawAirData}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct_air_data__t}{Air\+Data\+\_\+t}} Raw\+Air\+Data = \{ 1, 1000, 100000 \}}
+
+
+
+Raw data from sensor. 
+
+Global variables 
+
+Definition at line 48 of file main.\+c.
+
+\mbox{\Hypertarget{main_8c_aea3d8432371e80821f3548dd7d5e8ac6}\label{main_8c_aea3d8432371e80821f3548dd7d5e8ac6}} 
+\index{main.c@{main.c}!speed@{speed}}
+\index{speed@{speed}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{speed}{speed}}
+{\footnotesize\ttfamily out speed = \mbox{\hyperlink{main_8c_ac924cd877e7ebbba1c267e05d6597564}{in}}-\/$>$speed}
+
+
+
+Definition at line 170 of file main.\+c.
+
+\mbox{\Hypertarget{main_8c_a905c521e05ec8042631a912b71d0454e}\label{main_8c_a905c521e05ec8042631a912b71d0454e}} 
+\index{main.c@{main.c}!temp@{temp}}
+\index{temp@{temp}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{temp}{temp}}
+{\footnotesize\ttfamily temp = \mbox{\hyperlink{main_8c_ac924cd877e7ebbba1c267e05d6597564}{in}}-\/$>$\mbox{\hyperlink{main_8c_aea3d8432371e80821f3548dd7d5e8ac6}{speed}} / \mbox{\hyperlink{main_8c_ac924cd877e7ebbba1c267e05d6597564}{in}}-\/$>$\mbox{\hyperlink{main_8c_a6e7589eb20686776a4483c0421a8fe3a}{tempC}}}
+
+
+
+Definition at line 159 of file main.\+c.
+
+\mbox{\Hypertarget{main_8c_a6e7589eb20686776a4483c0421a8fe3a}\label{main_8c_a6e7589eb20686776a4483c0421a8fe3a}} 
+\index{main.c@{main.c}!tempC@{tempC}}
+\index{tempC@{tempC}!main.c@{main.c}}
+\doxysubsubsection{\texorpdfstring{tempC}{tempC}}
+{\footnotesize\ttfamily out tempC = \mbox{\hyperlink{main_8c_a905c521e05ec8042631a912b71d0454e}{temp}}}
+
+
+
+Definition at line 167 of file main.\+c.
+
