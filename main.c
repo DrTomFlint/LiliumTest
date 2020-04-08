@@ -14,6 +14,15 @@
 
 
 #include <stdio.h>
+ 
+#define AIR_DATA_SCALE 1.00325		//< temperature scaling for air data
+
+/// @todo move the fault codes to a header file, convert to enum
+#define FAULT_NONE 0
+#define FAULT_OVERRUN 1
+#define FAULT_AIRFILTER 2
+#define FAULT_COMPENSATE_DIV 3
+#define FAULT_COMPENSATE_RANGE 4
 
 /** AirData structure to hold data from the Fairchild type 54c airspeed
  *  sensor.  See http://fairchild.com/sensor/type54c.html for description
@@ -26,17 +35,6 @@
  * - 4  calibration failed
  *
  */
- 
-#define AIR_DATA_SCALE 1.00325		//< temperature scaling for air data
-
-/// @todo move the fault codes to a header file, convert to enum
-#define FAULT_NONE 0
-#define FAULT_OVERRUN 1
-#define FAULT_AIRFILTER 2
-#define FAULT_COMPENSATE_DIV 3
-#define FAULT_COMPENSATE_RANGE 4
-
- 
 typedef struct{
 	unsigned char errorWord;	///< error Word, 0=ok
 	unsigned short tempC;			///< temperature in C
